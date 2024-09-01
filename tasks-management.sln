@@ -5,6 +5,10 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksManagement.API", "TasksManagement.API\TasksManagement.API.csproj", "{5D435633-51E0-4142-A0E1-AEA08B5FD6A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksManagement.Core", "TasksManagement.Core\TasksManagement.Core.csproj", "{7FBE7038-FD63-478B-8D99-CECB8FDFB040}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksManagement.Infrastructure", "TasksManagement.Infrastructure\TasksManagement.Infrastructure.csproj", "{A7FFD4E8-4313-4E48-8B46-08B1A9BDB476}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{5D435633-51E0-4142-A0E1-AEA08B5FD6A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D435633-51E0-4142-A0E1-AEA08B5FD6A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D435633-51E0-4142-A0E1-AEA08B5FD6A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FBE7038-FD63-478B-8D99-CECB8FDFB040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FBE7038-FD63-478B-8D99-CECB8FDFB040}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FBE7038-FD63-478B-8D99-CECB8FDFB040}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FBE7038-FD63-478B-8D99-CECB8FDFB040}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7FFD4E8-4313-4E48-8B46-08B1A9BDB476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7FFD4E8-4313-4E48-8B46-08B1A9BDB476}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7FFD4E8-4313-4E48-8B46-08B1A9BDB476}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7FFD4E8-4313-4E48-8B46-08B1A9BDB476}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

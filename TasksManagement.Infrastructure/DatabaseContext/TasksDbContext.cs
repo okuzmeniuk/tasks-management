@@ -13,6 +13,14 @@ namespace TasksManagement.Infrastructure.DatabaseContext
 			modelBuilder.Entity<TaskTicket>()
 				.Property(ticket => ticket.Status)
 				.HasConversion<string>();
+
+			modelBuilder.Entity<TaskTicket>()
+				.Property(ticket => ticket.Id)
+				.HasConversion(id => id.Value, value => new TaskTicketId(value));
+
+			modelBuilder.Entity<Person>()
+				.Property(person => person.Id)
+				.HasConversion(id => id.Value, value => new PersonId(value));
 		}
 	}
 }

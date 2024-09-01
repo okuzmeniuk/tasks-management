@@ -1,6 +1,11 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.EntityFrameworkCore;
+using TasksManagement.Infrastructure.DatabaseContext;
 
+var builder = WebApplication.CreateBuilder(args);
+ 
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<TasksDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
