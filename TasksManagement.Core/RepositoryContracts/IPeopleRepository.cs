@@ -16,7 +16,8 @@ namespace TasksManagement.Core.RepositoryContracts
 		/// </summary>
 		/// <param name="id">ID to retrieve person by</param>
 		/// <returns>Person with given ID</returns>
-		Task<Person?> GetByIdAsync(PersonId id);
+		/// <exception cref="PersonNotFoundException"></exception>
+		Task<Person> GetByIdAsync(PersonId id);
 
 		/// <summary>
 		/// Adds person entity to database.
@@ -30,7 +31,6 @@ namespace TasksManagement.Core.RepositoryContracts
 		/// </summary>
 		/// <param name="personToUpdate">Entity to update</param>
 		/// <returns></returns>
-		/// <exception cref="PersonNotFoundException"></exception>
 		Task UpdateAsync(Person personToUpdate);
 
 		/// <summary>

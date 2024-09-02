@@ -16,7 +16,8 @@ namespace TasksManagement.Core.RepositoryContracts
 		/// </summary>
 		/// <param name="id">ID to retrieve entity by</param>
 		/// <returns>Task ticket with given ID</returns>
-		Task<TaskTicket?> GetByIdAsync(TaskTicketId id);
+		/// <exception cref="TaskTicketNotFoundException"></exception>
+		Task<TaskTicket> GetByIdAsync(TaskTicketId id);
 
 		/// <summary>
 		/// Retrieves all records from "TaskTickets" table in database filtered by given person ID.
@@ -37,7 +38,6 @@ namespace TasksManagement.Core.RepositoryContracts
 		/// </summary>
 		/// <param name="ticketToUpdate">Entity to update</param>
 		/// <returns></returns>
-		/// <exception cref="TaskTicketNotFoundException"></exception>
 		Task UpdateAsync(TaskTicket ticketToUpdate);
 
 		/// <summary>

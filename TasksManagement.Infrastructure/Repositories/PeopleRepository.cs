@@ -18,8 +18,9 @@ namespace TasksManagement.Infrastructure.Repositories
 		public async Task<IEnumerable<Person>> GetAllAsync()
 			=> await _dbContext.People.Include(person => person.Tickets).ToListAsync();
 
-		public async Task<Person?> GetByIdAsync(PersonId id)
-			=> await _dbContext.People.Include(person => person.Tickets).FirstOrDefaultAsync(person => person.Id == id);
+		public async Task<Person> GetByIdAsync(PersonId id)
+			=> await _dbContext.People.Include(person => person.Tickets).FirstOrDefaultAsync(person => person.Id == id)
+			?? throw new PersonNotFoundException("Person with given id was not found");
 
 		public async Task AddAsync(Person personToAdd)
 		{
@@ -31,10 +32,12 @@ namespace TasksManagement.Infrastructure.Repositories
 		{
 			if (GetByIdAsync(personToUpdate.Id) is null)
 			{
-				throw new PersonNotFoundException("Person with given id to update was not found");
+				_dbContext.People.Add(personToUpdate);
 			}
-
-			_dbContext.People.Update(personToUpdate);
+			else
+			{
+				_dbContext.People.Update(personToUpdate);
+			}
 			await _dbContext.SaveChangesAsync();
 		}
 
