@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using TasksManagement.Core.Enums;
+using TasksManagement.Core.JsonConverter;
 
 namespace TasksManagement.Core.Entities
 {
+	[JsonConverter(typeof(TaskTicketIdJsonConverter))]
 	public readonly record struct TaskTicketId(Guid Value)
 	{
 		public static TaskTicketId CreateNew() => new(Guid.NewGuid());

@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+using TasksManagement.Core.JsonConverter;
 
 namespace TasksManagement.Core.Entities
 {
+	[JsonConverter(typeof(PersonIdJsonConverter))]
 	public readonly record struct PersonId(Guid Value)
 	{
 		public static PersonId CreateNew() => new(Guid.NewGuid());
