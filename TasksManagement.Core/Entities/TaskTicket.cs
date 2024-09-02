@@ -17,7 +17,11 @@ namespace TasksManagement.Core.Entities
 
 		[StringLength(1024)]
 		public string Description { get; set; } = string.Empty;
+
+		[Required]
 		public Status Status { get; set; }
+
+		[Required]
 		public PersonId PersonId { get; set; }
 	}
 }

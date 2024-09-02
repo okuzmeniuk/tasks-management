@@ -12,6 +12,7 @@ namespace TasksManagement.Core.Entities
 	{
 		public PersonId Id { get; set; }
 
+		[Required]
 		[StringLength(20, MinimumLength = 3)]
 		public string Username { get; set; } = string.Empty;
 
