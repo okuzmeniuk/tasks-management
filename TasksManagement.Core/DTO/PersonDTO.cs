@@ -11,5 +11,8 @@ namespace TasksManagement.Core.DTO
 
 	public record PersonRequest(
 		[Required][StringLength(20, MinimumLength = 3)] string Username
-	);
+	)
+	{
+		public Person ToPerson() => new() { Username = Username };
+	}
 }

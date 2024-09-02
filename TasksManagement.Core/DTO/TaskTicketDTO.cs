@@ -17,5 +17,14 @@ namespace TasksManagement.Core.DTO
 		[StringLength(1024)] string Description,
 		[Required] Status Status,
 		[Required] PersonId PersonId
-	);
+	)
+	{
+		public TaskTicket ToTaskTicket() => new()
+		{
+			Title = Title,
+			Description = Description,
+			Status = Status,
+			PersonId = PersonId
+		};
+	}
 }
