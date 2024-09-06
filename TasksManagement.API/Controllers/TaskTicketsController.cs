@@ -2,7 +2,6 @@
 using TasksManagement.Core.DTO;
 using TasksManagement.Core.Entities;
 using TasksManagement.Core.ServiceContracts;
-using TasksManagement.Core.Services;
 
 namespace TasksManagement.API.Controllers
 {

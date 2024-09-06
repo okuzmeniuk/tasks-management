@@ -1,30 +1,29 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using TasksManagement.Core.Entities;
-using TasksManagement.Core.Enums;
 
 namespace TasksManagement.Core.DTO
 {
 	public record TaskTicketResponse(
-		TaskTicketId Id,
+		Guid Id,
 		string Title,
 		string Description,
-		Status Status,
-		PersonId PersonId
+		string Status,
+		Guid PersonId
 	);
 
 	public record TaskTicketRequest(
 		[StringLength(100, MinimumLength = 3)] string Title,
 		[StringLength(1024)] string Description,
-		[Required] Status Status,
-		[Required] PersonId PersonId
+		[Required][RegularExpression(@"Open|Closed")] string Status,
+		[Required] Guid PersonId
 	)
 	{
 		public TaskTicket ToTaskTicket() => new()
 		{
 			Title = Title,
 			Description = Description,
-			Status = Status,
-			PersonId = PersonId
+			Status = Status == "Open" ? Enums.Status.Open : Enums.Status.Closed,
+			PersonId = new PersonId(PersonId)
 		};
 	}
 }

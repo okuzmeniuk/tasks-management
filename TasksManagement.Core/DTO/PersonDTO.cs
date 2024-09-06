@@ -4,7 +4,7 @@ using TasksManagement.Core.Entities;
 namespace TasksManagement.Core.DTO
 {
 	public record PersonResponse(
-		PersonId Id,
+		Guid Id,
 		string Username,
 		List<TaskTicketResponse> Tickets
 	);
