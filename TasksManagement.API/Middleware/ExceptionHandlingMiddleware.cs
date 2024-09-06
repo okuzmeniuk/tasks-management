@@ -13,12 +13,14 @@ namespace TasksManagement.API.Middleware
 			catch (NotFoundException ex)
 			{
 				httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
-				await httpContext.Response.WriteAsync(ex.Message);
+				httpContext.Response.ContentType = "application/json";
+				await httpContext.Response.WriteAsync("{" + $"\"error\": \"{ex.Message}\"" + "}");
 			}
 			catch (Exception ex)
 			{
 				httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-				await httpContext.Response.WriteAsync(ex.Message);
+				httpContext.Response.ContentType = "application/json";
+				await httpContext.Response.WriteAsync("{" + $"\"error\": \"{ex.Message}\"" + "}");
 			}
 		}
 	}

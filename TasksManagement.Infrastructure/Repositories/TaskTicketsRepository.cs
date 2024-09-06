@@ -31,13 +31,14 @@ namespace TasksManagement.Infrastructure.Repositories
 
 		public async Task UpdateAsync(TaskTicket ticketToUpdate)
 		{
-			if (GetByIdAsync(ticketToUpdate.Id) is null)
+			try
 			{
-				_dbContext.TaskTickets.Add(ticketToUpdate);
-			}
-			else
-			{
+				await GetByIdAsync(ticketToUpdate.Id);
 				_dbContext.TaskTickets.Update(ticketToUpdate);
+			}
+			catch (TaskTicketNotFoundException)
+			{
+				await _dbContext.TaskTickets.AddAsync(ticketToUpdate);
 			}
 			await _dbContext.SaveChangesAsync();
 		}

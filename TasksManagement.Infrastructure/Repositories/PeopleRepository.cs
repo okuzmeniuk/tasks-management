@@ -30,14 +30,16 @@ namespace TasksManagement.Infrastructure.Repositories
 
 		public async Task UpdateAsync(Person personToUpdate)
 		{
-			if (GetByIdAsync(personToUpdate.Id) is null)
+			try
 			{
-				_dbContext.People.Add(personToUpdate);
-			}
-			else
-			{
+				await GetByIdAsync(personToUpdate.Id);
 				_dbContext.People.Update(personToUpdate);
 			}
+			catch (PersonNotFoundException)
+			{
+				await _dbContext.People.AddAsync(personToUpdate);
+			}
+
 			await _dbContext.SaveChangesAsync();
 		}
 
