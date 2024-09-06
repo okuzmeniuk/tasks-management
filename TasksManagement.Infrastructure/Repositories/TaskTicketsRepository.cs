@@ -15,13 +15,10 @@ namespace TasksManagement.Infrastructure.Repositories
 			_dbContext = dbContext;
 		}
 
-		public async Task<IEnumerable<TaskTicket>> GetAllAsync() => await _dbContext.TaskTickets.ToListAsync();
+		public async Task<IEnumerable<TaskTicket>> GetAllAsync() => await _dbContext.TaskTickets.AsNoTracking().ToListAsync();
 
-		public async Task<TaskTicket> GetByIdAsync(TaskTicketId id) => await _dbContext.TaskTickets.FindAsync(id)
+		public async Task<TaskTicket> GetByIdAsync(TaskTicketId id) => await _dbContext.TaskTickets.AsNoTracking().FirstOrDefaultAsync(task => task.Id == id)
 			?? throw new TaskTicketNotFoundException("Task ticket with given id to get was not found");
-
-		public async Task<IEnumerable<TaskTicket>> GetAllByPersonIdAsync(PersonId id)
-			=> await _dbContext.TaskTickets.Where(task => task.PersonId == id).ToListAsync();
 
 		public async Task AddAsync(TaskTicket ticketToAdd)
 		{

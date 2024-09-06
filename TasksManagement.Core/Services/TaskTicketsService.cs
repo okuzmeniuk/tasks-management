@@ -19,9 +19,6 @@ namespace TasksManagement.Core.Services
 
 		public async Task<TaskTicketResponse> GetByIdAsync(TaskTicketId id) => (await _taskTicketsRepository.GetByIdAsync(id)).ToDTO();
 
-		public async Task<IEnumerable<TaskTicketResponse>> GetAllByPersonIdAsync(PersonId id)
-			=> (await _taskTicketsRepository.GetAllByPersonIdAsync(id)).Select(taskTicket => taskTicket.ToDTO());
-
 		public async Task AddAsync(TaskTicketRequest addRequest)
 		{
 			TaskTicket taskTicket = addRequest.ToTaskTicket();

@@ -24,10 +24,6 @@ namespace TasksManagement.API.Controllers
 		public async Task<ActionResult<TaskTicketResponse>> GetByTaskTicketId(Guid id)
 			=> Ok(await _taskTicketsService.GetByIdAsync(new TaskTicketId(id)));
 
-		[HttpGet("byPersonId/{id:guid}")]
-		public async Task<ActionResult<IEnumerable<TaskTicketResponse>>> GetByAuthorId(Guid id)
-			=> Ok(await _taskTicketsService.GetAllByPersonIdAsync(new PersonId(id)));
-
 		[HttpPost]
 		public async Task<ActionResult> PostTaskTicket(TaskTicketRequest request)
 		{

@@ -20,13 +20,6 @@ namespace TasksManagement.Core.RepositoryContracts
 		Task<TaskTicket> GetByIdAsync(TaskTicketId id);
 
 		/// <summary>
-		/// Retrieves all records from "TaskTickets" table in database filtered by given person ID.
-		/// </summary>
-		/// <param name="id">Person ID to filter task tickets by</param>
-		/// <returns>Collection of filtered TaskTickets objects</returns>
-		Task<IEnumerable<TaskTicket>> GetAllByPersonIdAsync(PersonId id);
-
-		/// <summary>
 		/// Adds task ticket entity to database.
 		/// </summary>
 		/// <param name="ticketToAdd">Entity to add</param>

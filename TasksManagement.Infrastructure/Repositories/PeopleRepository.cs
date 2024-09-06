@@ -16,10 +16,10 @@ namespace TasksManagement.Infrastructure.Repositories
 		}
 
 		public async Task<IEnumerable<Person>> GetAllAsync()
-			=> await _dbContext.People.Include(person => person.Tickets).ToListAsync();
+			=> await _dbContext.People.AsNoTracking().Include(person => person.Tickets).ToListAsync();
 
 		public async Task<Person> GetByIdAsync(PersonId id)
-			=> await _dbContext.People.Include(person => person.Tickets).FirstOrDefaultAsync(person => person.Id == id)
+			=> await _dbContext.People.AsNoTracking().Include(person => person.Tickets).FirstOrDefaultAsync(person => person.Id == id)
 			?? throw new PersonNotFoundException("Person with given id was not found");
 
 		public async Task AddAsync(Person personToAdd)
