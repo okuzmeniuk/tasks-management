@@ -25,6 +25,11 @@ namespace TasksManagement.API.Controllers
 		[HttpPost]
 		public async Task<ActionResult> PostPerson(PersonRequest request)
 		{
+			if (!ModelState.IsValid)
+			{
+				return ValidationProblem(ModelState);
+			}
+
 			await _peopleService.AddAsync(request);
 			return Ok();
 		}
@@ -32,6 +37,11 @@ namespace TasksManagement.API.Controllers
 		[HttpPut("{id:guid}")]
 		public async Task<ActionResult> PutPerson(Guid id, PersonRequest request)
 		{
+			if (!ModelState.IsValid)
+			{
+				return ValidationProblem(ModelState);
+			}
+
 			await _peopleService.UpdateAsync(new PersonId(id), request);
 			return Ok();
 		}

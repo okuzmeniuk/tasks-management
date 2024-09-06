@@ -14,7 +14,7 @@ namespace TasksManagement.Core.DTO
 	public record TaskTicketRequest(
 		[StringLength(100, MinimumLength = 3)] string Title,
 		[StringLength(1024)] string Description,
-		[Required][RegularExpression(@"Open|Closed")] string Status,
+		[Required][RegularExpression(@"Open|Closed", ErrorMessage = "Status can be either 'Open' or 'Closed'")] string Status,
 		[Required] Guid PersonId
 	)
 	{

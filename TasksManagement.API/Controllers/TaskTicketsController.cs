@@ -27,6 +27,11 @@ namespace TasksManagement.API.Controllers
 		[HttpPost]
 		public async Task<ActionResult> PostTaskTicket(TaskTicketRequest request)
 		{
+			if (!ModelState.IsValid)
+			{
+				return ValidationProblem(ModelState);
+			}
+
 			await _taskTicketsService.AddAsync(request);
 			return Ok();
 		}
@@ -34,6 +39,11 @@ namespace TasksManagement.API.Controllers
 		[HttpPut("{id:guid}")]
 		public async Task<ActionResult> PutTaskTicket(Guid id, TaskTicketRequest request)
 		{
+			if (!ModelState.IsValid)
+			{
+				return ValidationProblem(ModelState);
+			}
+
 			await _taskTicketsService.UpdateAsync(new TaskTicketId(id), request);
 			return Ok();
 		}
