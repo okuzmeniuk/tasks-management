@@ -27,6 +27,11 @@ namespace TasksManagement.API.Controllers
 		[HttpPost]
 		public async Task<ActionResult> PostTaskTicket(TaskTicketRequest request)
 		{
+			if (request.PersonId == Guid.Empty)
+			{
+				ModelState.AddModelError("personId", "PersonId should not be empty");
+			}
+
 			if (!ModelState.IsValid)
 			{
 				return ValidationProblem(ModelState);
@@ -39,6 +44,11 @@ namespace TasksManagement.API.Controllers
 		[HttpPut("{id:guid}")]
 		public async Task<ActionResult> PutTaskTicket(Guid id, TaskTicketRequest request)
 		{
+			if (request.PersonId == Guid.Empty)
+			{
+				ModelState.AddModelError("personId", "PersonId should not be empty");
+			}
+
 			if (!ModelState.IsValid)
 			{
 				return ValidationProblem(ModelState);

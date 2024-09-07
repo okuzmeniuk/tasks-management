@@ -1,5 +1,6 @@
 ﻿using TasksManagement.Core.DTO;
 using TasksManagement.Core.Entities;
+using TasksManagement.Core.Exceptions;
 using TasksManagement.Core.RepositoryContracts;
 using TasksManagement.Core.ServiceContracts;
 
@@ -8,10 +9,12 @@ namespace TasksManagement.Core.Services
 	public class TaskTicketsService : ITaskTicketsService
 	{
 		private readonly ITaskTicketsRepository _taskTicketsRepository;
+		private readonly IPeopleRepository _peopleRepository;
 
-		public TaskTicketsService(ITaskTicketsRepository taskTicketsRepository)
+		public TaskTicketsService(ITaskTicketsRepository taskTicketsRepository, IPeopleRepository peopleRepository)
 		{
 			_taskTicketsRepository = taskTicketsRepository;
+			_peopleRepository = peopleRepository;
 		}
 
 		public async Task<IEnumerable<TaskTicketResponse>> GetAllAsync()
@@ -19,18 +22,21 @@ namespace TasksManagement.Core.Services
 
 		public async Task<TaskTicketResponse> GetByIdAsync(TaskTicketId id) => (await _taskTicketsRepository.GetByIdAsync(id)).ToDTO();
 
-		public async Task AddAsync(TaskTicketRequest addRequest)
-		{
-			TaskTicket taskTicket = addRequest.ToTaskTicket();
-			taskTicket.Id = TaskTicketId.CreateNew();
-			await _taskTicketsRepository.AddAsync(taskTicket);
-		}
+		public async Task AddAsync(TaskTicketRequest addRequest) => await UpdateAsync(TaskTicketId.CreateNew(), addRequest);
 
 		public async Task UpdateAsync(TaskTicketId id, TaskTicketRequest updateRequest)
 		{
-			TaskTicket taskTicket = updateRequest.ToTaskTicket();
-			taskTicket.Id = id;
-			await _taskTicketsRepository.UpdateAsync(taskTicket);
+			try
+			{
+				await _peopleRepository.GetByIdAsync(new(updateRequest.PersonId));
+				TaskTicket taskTicket = updateRequest.ToTaskTicket();
+				taskTicket.Id = id;
+				await _taskTicketsRepository.UpdateAsync(taskTicket);
+			}
+			catch (PersonNotFoundException)
+			{
+				throw new PersonNotFoundException("Person with given ID does not exist");
+			}
 		}
 
 		public async Task DeleteAsync(TaskTicketId id) => await _taskTicketsRepository.DeleteAsync(id);
