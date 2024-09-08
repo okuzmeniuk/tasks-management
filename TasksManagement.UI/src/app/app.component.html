@@ -1,5 +1,7 @@
-<div class="container">
+<div class="container mx-auto w-2/3">
   <app-header message="Tasks Management System" />
-  <app-user-cards />
-  <app-task-tickets />
+  <main class="flex mt-12 justify-center">
+    <app-user-cards class="grow basis-1/3" />
+    <app-task-tickets class="grow basis-2/3" />
+  </main>
 </div>
