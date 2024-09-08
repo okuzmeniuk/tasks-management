@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { TaskTicketsComponent } from './task-tickets/task-tickets.component';
-import { UserCardsComponent } from './user-card/user-cards/user-cards.component';
+import { UserCardsComponent } from './user-cards/user-cards.component';
 
 @Component({
   selector: 'app-root',
