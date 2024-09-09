@@ -1,1 +1,6 @@
-<p>user-cards works!</p>
+<a
+  class="block rounded bg-emerald-300 hover:bg-emerald-400 w-3/4 pt-2 pb-2 pl-6 mb-4 mx-auto shadow shadow-slate-800"
+  [routerLink]="['/users', user().id]"
+>
+  {{ user().username }}
+</a>

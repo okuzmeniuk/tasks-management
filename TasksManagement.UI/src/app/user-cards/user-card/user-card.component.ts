@@ -1,10 +1,11 @@
 import { Component, input } from '@angular/core';
 import { User } from '../user.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-user-cards',
+  selector: 'app-user-card',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './user-card.component.html',
   styleUrl: './user-card.component.css',
 })

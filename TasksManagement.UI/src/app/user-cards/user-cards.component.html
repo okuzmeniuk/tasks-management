@@ -1,1 +1,7 @@
-<p>user-card works!</p>
+<ul>
+  @for(user of users; track user.id){
+  <li>
+    <app-user-card [user]="user" />
+  </li>
+  }
+</ul>
