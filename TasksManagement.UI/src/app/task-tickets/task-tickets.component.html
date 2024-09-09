@@ -1,4 +1,7 @@
-<div>
-  <p>task-tickets works!</p>
-  <router-outlet />
-</div>
+<ul>
+  @for (taskTicket of taskTickets; track taskTicket.id) {
+  <li>
+    <app-task-ticket [taskTicket]="taskTicket" />
+  </li>
+  }
+</ul>
