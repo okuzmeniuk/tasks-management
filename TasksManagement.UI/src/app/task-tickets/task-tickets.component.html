@@ -1,7 +1,11 @@
+@if(error$() !== undefined){
+<p>{{ error$() }}</p>
+} @else {
 <ul>
-  @for (taskTicket of taskTickets; track taskTicket.id) {
+  @for (taskTicket of taskTickets$(); track taskTicket.id) {
   <li>
     <app-task-ticket [taskTicket]="taskTicket" />
   </li>
   }
 </ul>
+}
