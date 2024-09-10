@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { User } from './user.model';
 import { UserCardComponent } from './user-card/user-card.component';
+import { UsersService } from './users.service';
 
 @Component({
   selector: 'app-user-cards',
@@ -9,11 +10,15 @@ import { UserCardComponent } from './user-card/user-card.component';
   templateUrl: './user-cards.component.html',
   styleUrl: './user-cards.component.css',
 })
-export class UserCardsComponent {
-  users: User[] = [
-    { id: '1', username: 'user1', tickets: [] },
-    { id: '2', username: 'user2', tickets: [] },
-    { id: '3', username: 'user3', tickets: [] },
-    { id: '4', username: 'user4', tickets: [] },
-  ];
+export class UserCardsComponent implements OnInit {
+  users$ = signal<User[]>([]);
+  error$ = signal<string | undefined>(undefined);
+  private usersService = inject(UsersService);
+
+  ngOnInit() {
+    this.usersService.getUsers().subscribe({
+      next: (users) => this.users$.set(users),
+      error: (error) => this.error$.set(error),
+    });
+  }
 }

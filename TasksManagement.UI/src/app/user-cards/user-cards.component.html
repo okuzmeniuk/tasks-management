@@ -1,7 +1,11 @@
+@if(error$() !== undefined){
+<p>{{ error$() }}</p>
+} @else {
 <ul>
-  @for(user of users; track user.id){
+  @for(user of users$(); track user.id){
   <li>
     <app-user-card [user]="user" />
   </li>
   }
 </ul>
+}
