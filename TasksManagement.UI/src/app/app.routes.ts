@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { NoTicketsComponent } from './task-tickets/no-tickets/no-tickets.component';
 import { TaskTicketsComponent } from './task-tickets/task-tickets.component';
+import { taskTicketsResolver } from './task-tickets/task-tickets.resolver';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', component: NoTicketsComponent },
+  // { path: '', pathMatch: 'full' },
   {
     path: 'users/:id',
     pathMatch: 'full',
     component: TaskTicketsComponent,
+    resolve: { user: taskTicketsResolver },
   },
 ];

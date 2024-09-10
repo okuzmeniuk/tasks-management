@@ -1,8 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { TaskTicket } from './task-ticket.model';
 import { TaskTicketComponent } from './task-ticket/task-ticket.component';
-import { UsersService } from '../user-cards/users.service';
 
 @Component({
   selector: 'app-task-tickets',
@@ -12,14 +11,13 @@ import { UsersService } from '../user-cards/users.service';
   styleUrl: './task-tickets.component.css',
 })
 export class TaskTicketsComponent implements OnInit {
-  private usersService = inject(UsersService);
+  private activatedRotue = inject(ActivatedRoute);
   taskTickets$ = signal<TaskTicket[]>([]);
   error$ = signal<string | undefined>(undefined);
-  personId = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
 
   ngOnInit() {
-    this.usersService.getUser(this.personId).subscribe({
-      next: (user) => this.taskTickets$.set(user.tickets),
+    this.activatedRotue.data.subscribe({
+      next: (data) => this.taskTickets$.set(data['user'].tickets),
       error: (error) => this.error$.set(error),
     });
   }
