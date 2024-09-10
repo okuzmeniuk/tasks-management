@@ -21,6 +21,14 @@ builder.Services.AddDbContext<TasksDbContext>(options => options.UseSqlServer(bu
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+	options.AddDefaultPolicy(policy =>
+	{
+		policy.WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>());
+	});
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -31,6 +39,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHsts();
 app.UseHttpsRedirection();
+app.UseCors();
 
 app.UseAuthorization();
 
