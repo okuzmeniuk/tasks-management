@@ -1,36 +1,35 @@
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TaskTicket } from './task-ticket.model';
+import { apiLink } from '../api.link';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskTicketsService {
   private httpClient = inject(HttpClient);
-  private apiUrl = environment.apiUrl;
 
   getTaskTickets(): Observable<TaskTicket[]> {
-    return this.httpClient.get<TaskTicket[]>(`${this.apiUrl}/TaskTickets`);
+    return this.httpClient.get<TaskTicket[]>(`${apiLink}/TaskTickets`);
   }
 
   getTaskTicket(id: string): Observable<TaskTicket> {
-    return this.httpClient.get<TaskTicket>(`${this.apiUrl}/TaskTickets/${id}`);
+    return this.httpClient.get<TaskTicket>(`${apiLink}/TaskTickets/${id}`);
   }
 
   putTaskTicket(taskTicket: TaskTicket): Observable<Object> {
     return this.httpClient.post(
-      `${this.apiUrl}/TaskTickets/${taskTicket.id}`,
+      `${apiLink}/TaskTickets/${taskTicket.id}`,
       taskTicket
     );
   }
 
   postTaskTicket(taskTicket: TaskTicket): Observable<Object> {
-    return this.httpClient.post(`${this.apiUrl}/TaskTickets/`, taskTicket);
+    return this.httpClient.post(`${apiLink}/TaskTickets/`, taskTicket);
   }
 
   deleteTaskTicket(id: string): Observable<Object> {
-    return this.httpClient.delete(`${this.apiUrl}/TaskTickets/${id}`);
+    return this.httpClient.delete(`${apiLink}/TaskTickets/${id}`);
   }
 }

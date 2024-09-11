@@ -1,5 +1,7 @@
 @if(error$() !== undefined){
 <p>{{ error$() }}</p>
+} @else { @if(taskTickets$().length === 0){
+<p class="mx-4 mt-4 px-2 pt-2 pb-2">User doesn't have any associated tasks.</p>
 } @else {
 <ul>
   @for (taskTicket of taskTickets$(); track taskTicket.id) {
@@ -8,4 +10,44 @@
   </li>
   }
 </ul>
-}
+} @if(isButtonClicked()){
+<form
+  [formGroup]="addTaskTicketForm"
+  class="bg-green-300 mx-4 mt-4 mb-4 px-4 pt-4 pb-4 shadow shadow-slate-800"
+>
+  <label for="title">Task Name: </label>
+  <input
+    id="title"
+    type="text"
+    formControlName="title"
+    class="block border border-gray-400 mt-2 w-full"
+  />
+
+  <label for="description" class="block mt-4">Description: </label>
+  <textarea
+    id="description"
+    formControlName="description"
+    rows="4"
+    class="block resize-none border border-gray-400 mt-2 w-full"
+  ></textarea>
+
+  <div class="mt-4">
+    <label for="opened">Open? </label>
+    <input id="opened" type="checkbox" formControlName="opened" />
+  </div>
+
+  <button
+    class="block mt-4 px-2 pt-2 pb-2 bg-emerald-400 hover:bg-emerald-500 shadow shadow-slate-800 rounded"
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+} @else{
+<button
+  class="mx-4 mt-4 px-2 pt-2 pb-2 bg-emerald-400 hover:bg-emerald-500 shadow shadow-slate-800 rounded"
+  (click)="onAddButtonClick()"
+>
+  Add task
+</button>
+} }
