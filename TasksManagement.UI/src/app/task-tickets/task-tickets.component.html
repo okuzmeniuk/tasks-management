@@ -10,10 +10,11 @@
   </li>
   }
 </ul>
-} @if(isButtonClicked()){
+} @if(showForm()){
 <form
   [formGroup]="addTaskTicketForm"
   class="bg-green-300 mx-4 mt-4 mb-4 px-4 pt-4 pb-4 shadow shadow-slate-800"
+  (ngSubmit)="onFormSubmit()"
 >
   <label for="title">Task Name: </label>
   <input

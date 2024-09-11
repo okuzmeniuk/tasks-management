@@ -2,7 +2,9 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { TaskTicket } from './task-ticket.model';
 import { TaskTicketComponent } from './task-ticket/task-ticket.component';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TaskTicketsService } from './task-tickets.service';
+import { UsersService } from '../user-cards/users.service';
 
 @Component({
   selector: 'app-task-tickets',
@@ -12,26 +14,63 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './task-tickets.component.css',
 })
 export class TaskTicketsComponent implements OnInit {
-  private activatedRotue = inject(ActivatedRoute);
+  private activatedRoute = inject(ActivatedRoute);
   private formBuilder = inject(FormBuilder);
+  private usersService = inject(UsersService);
+  private taskTicketsService = inject(TaskTicketsService);
+
   taskTickets$ = signal<TaskTicket[]>([]);
   error$ = signal<string | undefined>(undefined);
-  isButtonClicked = signal<boolean>(false);
+  showForm = signal<boolean>(false);
+  formErrors = signal<string[]>([]);
+  currentUserId = signal<string>('');
 
   addTaskTicketForm = this.formBuilder.group({
-    title: '',
-    description: '',
+    title: ['', [Validators.required, Validators.minLength(3)]],
+    description: ['', Validators.required],
     opened: true,
   });
 
   ngOnInit() {
-    this.activatedRotue.data.subscribe({
-      next: (data) => this.taskTickets$.set(data['user'].tickets),
-      error: (error) => this.error$.set(error),
+    this.activatedRoute.params.subscribe({
+      next: (params) => {
+        this.currentUserId.set(params['id']);
+
+        this.usersService.getUser(this.currentUserId()).subscribe({
+          next: (user) => this.taskTickets$.set(user.tickets),
+          error: (error) => this.error$.set(error),
+        });
+      },
     });
   }
 
   onAddButtonClick() {
-    this.isButtonClicked.set(true);
+    this.showForm.set(true);
+  }
+
+  onFormSubmit() {
+    if (this.addTaskTicketForm.invalid) {
+      return;
+    }
+
+    const title = this.addTaskTicketForm.get('title')!.value!;
+    const description = this.addTaskTicketForm.get('description')!.value!;
+    const opened =
+      this.addTaskTicketForm.get('opened')?.value ?? false ? 'Open' : 'Closed';
+
+    const taskTicketToAdd: TaskTicket = {
+      id: '',
+      title,
+      description,
+      status: opened,
+      personId: this.currentUserId(),
+    };
+
+    this.taskTicketsService.postTaskTicket(taskTicketToAdd).subscribe({
+      error: (error) => console.log(error),
+    });
+
+    this.addTaskTicketForm.reset();
+    this.showForm.set(false);
   }
 }
