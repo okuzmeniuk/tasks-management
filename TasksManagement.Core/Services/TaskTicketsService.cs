@@ -22,9 +22,9 @@ namespace TasksManagement.Core.Services
 
 		public async Task<TaskTicketResponse> GetByIdAsync(TaskTicketId id) => (await _taskTicketsRepository.GetByIdAsync(id)).ToDTO();
 
-		public async Task AddAsync(TaskTicketRequest addRequest) => await UpdateAsync(TaskTicketId.CreateNew(), addRequest);
+		public async Task<TaskTicketResponse> AddAsync(TaskTicketRequest addRequest) => await UpdateAsync(TaskTicketId.CreateNew(), addRequest);
 
-		public async Task UpdateAsync(TaskTicketId id, TaskTicketRequest updateRequest)
+		public async Task<TaskTicketResponse> UpdateAsync(TaskTicketId id, TaskTicketRequest updateRequest)
 		{
 			try
 			{
@@ -32,6 +32,7 @@ namespace TasksManagement.Core.Services
 				TaskTicket taskTicket = updateRequest.ToTaskTicket();
 				taskTicket.Id = id;
 				await _taskTicketsRepository.UpdateAsync(taskTicket);
+				return taskTicket.ToDTO();
 			}
 			catch (PersonNotFoundException)
 			{

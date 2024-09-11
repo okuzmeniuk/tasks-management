@@ -25,7 +25,7 @@ namespace TasksManagement.API.Controllers
 			=> Ok(await _taskTicketsService.GetByIdAsync(new TaskTicketId(id)));
 
 		[HttpPost]
-		public async Task<ActionResult> PostTaskTicket(TaskTicketRequest request)
+		public async Task<ActionResult<TaskTicketResponse>> PostTaskTicket(TaskTicketRequest request)
 		{
 			if (request.PersonId == Guid.Empty)
 			{
@@ -37,12 +37,12 @@ namespace TasksManagement.API.Controllers
 				return ValidationProblem(ModelState);
 			}
 
-			await _taskTicketsService.AddAsync(request);
-			return Ok();
+			TaskTicketResponse response = await _taskTicketsService.AddAsync(request);
+			return Ok(response);
 		}
 
 		[HttpPut("{id:guid}")]
-		public async Task<ActionResult> PutTaskTicket(Guid id, TaskTicketRequest request)
+		public async Task<ActionResult<TaskTicketResponse>> PutTaskTicket(Guid id, TaskTicketRequest request)
 		{
 			if (request.PersonId == Guid.Empty)
 			{
@@ -54,8 +54,8 @@ namespace TasksManagement.API.Controllers
 				return ValidationProblem(ModelState);
 			}
 
-			await _taskTicketsService.UpdateAsync(new TaskTicketId(id), request);
-			return Ok();
+			TaskTicketResponse response = await _taskTicketsService.UpdateAsync(new TaskTicketId(id), request);
+			return Ok(response);
 		}
 
 		[HttpDelete("{id:guid}")]

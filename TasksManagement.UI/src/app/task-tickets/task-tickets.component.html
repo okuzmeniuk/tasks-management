@@ -37,12 +37,22 @@
     <input id="opened" type="checkbox" formControlName="opened" />
   </div>
 
-  <button
-    class="block mt-4 px-2 pt-2 pb-2 bg-emerald-400 hover:bg-emerald-500 shadow shadow-slate-800 rounded"
-    type="submit"
-  >
-    Submit
-  </button>
+  <div class="flex gap-4">
+    <button
+      class="block mt-4 px-2 pt-2 pb-2 bg-emerald-400 hover:bg-emerald-500 shadow shadow-slate-800 rounded"
+      type="submit"
+    >
+      Submit
+    </button>
+
+    <button
+      class="block mt-4 px-2 pt-2 pb-2 bg-red-400 hover:bg-red-500 shadow shadow-slate-800 rounded"
+      type="button"
+      (click)="resetForm()"
+    >
+      Cancel
+    </button>
+  </div>
 </form>
 } @else{
 <button

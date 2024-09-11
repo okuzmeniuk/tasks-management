@@ -20,18 +20,20 @@ namespace TasksManagement.Core.Services
 
 		public async Task<PersonResponse> GetByIdAsync(PersonId id) => (await _peopleRepository.GetByIdAsync(id)).ToDTO();
 		
-		public async Task AddAsync(PersonRequest addRequest)
+		public async Task<PersonResponse> AddAsync(PersonRequest addRequest)
 		{
 			Person person = addRequest.ToPerson();
 			person.Id = PersonId.CreateNew();
 			await _peopleRepository.AddAsync(person);
+			return person.ToDTO();
 		}
 
-		public async Task UpdateAsync(PersonId id, PersonRequest updateRequest)
+		public async Task<PersonResponse> UpdateAsync(PersonId id, PersonRequest updateRequest)
 		{
 			Person person = updateRequest.ToPerson();
 			person.Id = id;
 			await _peopleRepository.UpdateAsync(person);
+			return person.ToDTO();
 		}
 		
 		public async Task DeleteAsync(PersonId id) => await _peopleRepository.DeleteAsync(id);

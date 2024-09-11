@@ -7,8 +7,8 @@ namespace TasksManagement.Core.ServiceContracts
 	{
 		Task<IEnumerable<TaskTicketResponse>> GetAllAsync();
 		Task<TaskTicketResponse> GetByIdAsync(TaskTicketId id);
-		Task AddAsync(TaskTicketRequest addRequest);
-		Task UpdateAsync(TaskTicketId id, TaskTicketRequest updateRequest);
+		Task<TaskTicketResponse> AddAsync(TaskTicketRequest addRequest);
+		Task<TaskTicketResponse> UpdateAsync(TaskTicketId id, TaskTicketRequest updateRequest);
 		Task DeleteAsync(TaskTicketId id);
 	}
 }

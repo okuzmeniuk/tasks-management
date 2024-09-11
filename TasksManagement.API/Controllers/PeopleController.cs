@@ -23,27 +23,27 @@ namespace TasksManagement.API.Controllers
 		public async Task<ActionResult<PersonResponse>> GetPersonById(Guid id) => Ok(await _peopleService.GetByIdAsync(new PersonId(id)));
 
 		[HttpPost]
-		public async Task<ActionResult> PostPerson(PersonRequest request)
+		public async Task<ActionResult<PersonResponse>> PostPerson(PersonRequest request)
 		{
 			if (!ModelState.IsValid)
 			{
 				return ValidationProblem(ModelState);
 			}
 
-			await _peopleService.AddAsync(request);
-			return Ok();
+			PersonResponse response = await _peopleService.AddAsync(request);
+			return Ok(response);
 		}
 
 		[HttpPut("{id:guid}")]
-		public async Task<ActionResult> PutPerson(Guid id, PersonRequest request)
+		public async Task<ActionResult<PersonResponse>> PutPerson(Guid id, PersonRequest request)
 		{
 			if (!ModelState.IsValid)
 			{
 				return ValidationProblem(ModelState);
 			}
 
-			await _peopleService.UpdateAsync(new PersonId(id), request);
-			return Ok();
+			PersonResponse response = await _peopleService.UpdateAsync(new PersonId(id), request);
+			return Ok(response);
 		}
 
 		[HttpDelete("{id:guid}")]

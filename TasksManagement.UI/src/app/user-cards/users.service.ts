@@ -18,12 +18,12 @@ export class UsersService {
     return this.httpClient.get<User>(`${apiLink}/People/${id}`);
   }
 
-  putUser(user: User): Observable<Object> {
-    return this.httpClient.post(`${apiLink}/People/${user.id}`, user);
+  putUser(user: User): Observable<User> {
+    return this.httpClient.put<User>(`${apiLink}/People/${user.id}`, user);
   }
 
-  postUser(user: User): Observable<Object> {
-    return this.httpClient.post(`${apiLink}/People/`, user);
+  postUser(user: User): Observable<User> {
+    return this.httpClient.post<User>(`${apiLink}/People/`, user);
   }
 
   deleteUser(id: string): Observable<Object> {

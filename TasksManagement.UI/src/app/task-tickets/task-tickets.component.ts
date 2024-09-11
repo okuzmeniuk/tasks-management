@@ -35,6 +35,7 @@ export class TaskTicketsComponent implements OnInit {
     this.activatedRoute.params.subscribe({
       next: (params) => {
         this.currentUserId.set(params['id']);
+        this.resetForm();
 
         this.usersService.getUser(this.currentUserId()).subscribe({
           next: (user) => this.taskTickets$.set(user.tickets),
@@ -46,6 +47,11 @@ export class TaskTicketsComponent implements OnInit {
 
   onAddButtonClick() {
     this.showForm.set(true);
+  }
+
+  resetForm() {
+    this.addTaskTicketForm.reset();
+    this.showForm.set(false);
   }
 
   onFormSubmit() {
@@ -67,10 +73,11 @@ export class TaskTicketsComponent implements OnInit {
     };
 
     this.taskTicketsService.postTaskTicket(taskTicketToAdd).subscribe({
+      next: (taskTicket) =>
+        this.taskTickets$.set([...this.taskTickets$(), taskTicket]),
       error: (error) => console.log(error),
     });
 
-    this.addTaskTicketForm.reset();
-    this.showForm.set(false);
+    this.resetForm();
   }
 }

@@ -18,15 +18,18 @@ export class TaskTicketsService {
     return this.httpClient.get<TaskTicket>(`${apiLink}/TaskTickets/${id}`);
   }
 
-  putTaskTicket(taskTicket: TaskTicket): Observable<Object> {
-    return this.httpClient.post(
+  putTaskTicket(taskTicket: TaskTicket): Observable<TaskTicket> {
+    return this.httpClient.put<TaskTicket>(
       `${apiLink}/TaskTickets/${taskTicket.id}`,
       taskTicket
     );
   }
 
-  postTaskTicket(taskTicket: TaskTicket): Observable<Object> {
-    return this.httpClient.post(`${apiLink}/TaskTickets/`, taskTicket);
+  postTaskTicket(taskTicket: TaskTicket): Observable<TaskTicket> {
+    return this.httpClient.post<TaskTicket>(
+      `${apiLink}/TaskTickets/`,
+      taskTicket
+    );
   }
 
   deleteTaskTicket(id: string): Observable<Object> {

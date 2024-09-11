@@ -7,8 +7,8 @@ namespace TasksManagement.Core.ServiceContracts
 	{
 		Task<IEnumerable<PersonResponse>> GetAllAsync();
 		Task<PersonResponse> GetByIdAsync(PersonId id);
-		Task AddAsync(PersonRequest addRequest);
-		Task UpdateAsync(PersonId id, PersonRequest updateRequest);
+		Task<PersonResponse> AddAsync(PersonRequest addRequest);
+		Task<PersonResponse> UpdateAsync(PersonId id, PersonRequest updateRequest);
 		Task DeleteAsync(PersonId id);
 	}
 }
