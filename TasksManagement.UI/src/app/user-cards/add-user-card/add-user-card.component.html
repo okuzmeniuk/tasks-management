@@ -1,10 +1,39 @@
 @if(showForm()){
-<form></form>
+<form
+  class="block rounded bg-sky-200 w-3/4 pt-2 pb-2 mx-auto shadow shadow-slate-800 px-4"
+  [formGroup]="addUserCardForm"
+  (ngSubmit)="onFormSubmit()"
+>
+  <label for="username">Name:</label>
+  <input
+    id="username"
+    type="text"
+    formControlName="username"
+    class="block border border-gray-400 w-full mt-2"
+  />
+
+  <div class="flex gap-4 grow">
+    <button
+      class="basis-1/2 block mt-4 px-2 pt-2 pb-2 bg-emerald-300 hover:bg-emerald-400 shadow shadow-slate-800 rounded"
+      type="submit"
+    >
+      Submit
+    </button>
+
+    <button
+      class="basis-1/2 block mt-4 px-2 pt-2 pb-2 bg-red-400 hover:bg-red-500 shadow shadow-slate-800 rounded"
+      type="button"
+      (click)="resetForm()"
+    >
+      Cancel
+    </button>
+  </div>
+</form>
 } @else {
 <button
   class="block rounded bg-emerald-300 hover:bg-emerald-400 w-3/4 pt-2 pb-2 mx-auto shadow shadow-slate-800"
   (click)="onAddClick()"
 >
-  Add
+  Add person
 </button>
 }

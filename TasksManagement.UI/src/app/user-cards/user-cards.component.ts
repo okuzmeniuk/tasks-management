@@ -22,4 +22,8 @@ export class UserCardsComponent implements OnInit {
       error: (error) => this.error$.set(error),
     });
   }
+
+  onUserAdded(user: User) {
+    this.users$.set([...this.users$(), user]);
+  }
 }
