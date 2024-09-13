@@ -1,6 +1,7 @@
 <a
-  class="block rounded bg-emerald-300 hover:bg-emerald-400 w-3/4 pt-2 pb-2 pl-6 mb-4 mx-auto shadow shadow-slate-800"
+  class="block rounded bg-sky-200 hover:bg-sky-300 w-3/4 pt-2 pb-2 pl-6 mb-4 mx-auto shadow shadow-slate-800"
   [routerLink]="['/users', user().id]"
+  routerLinkActive="bg-sky-300"
 >
   {{ user().username }}
 </a>

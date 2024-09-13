@@ -13,7 +13,7 @@
 } @if(showForm()){
 <form
   [formGroup]="addTaskTicketForm"
-  class="bg-green-300 mx-4 mt-4 mb-4 px-4 pt-4 pb-4 shadow shadow-slate-800"
+  class="bg-sky-200 mx-4 mt-4 mb-4 px-4 pt-4 pb-4 shadow shadow-slate-800"
   (ngSubmit)="onFormSubmit()"
 >
   <label for="title">Task Name: </label>
@@ -39,7 +39,7 @@
 
   <div class="flex gap-4">
     <button
-      class="block mt-4 px-2 pt-2 pb-2 bg-emerald-400 hover:bg-emerald-500 shadow shadow-slate-800 rounded"
+      class="block mt-4 px-2 pt-2 pb-2 bg-emerald-300 hover:bg-emerald-400 shadow shadow-slate-800 rounded"
       type="submit"
     >
       Submit
@@ -56,7 +56,7 @@
 </form>
 } @else{
 <button
-  class="mx-4 mt-4 px-2 pt-2 pb-2 bg-emerald-400 hover:bg-emerald-500 shadow shadow-slate-800 rounded"
+  class="mx-4 mt-4 px-6 pt-2 pb-2 bg-emerald-300 hover:bg-emerald-400 shadow shadow-slate-800 rounded"
   (click)="onAddButtonClick()"
 >
   Add task
